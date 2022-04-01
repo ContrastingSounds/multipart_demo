@@ -3,16 +3,14 @@
 const express = require('express');
 const multer = require('multer')
 const fs = require('fs');
-const { time } = require('console');
 
 const router = express.Router();
 const upload = multer({ dest: 'tmp/' })
 
-
 router.post('/upload', upload.single('file'), function(req, res) {
   const file = req.file
   console.log({ file })
-  fs.rename('tmp/' + file.filename, 'tmp/' + Date.now() + file.originalname, (err) => {
+  fs.rename('tmp/' + file.filename, 'tmp/' + file.originalname, (err) => {
     if (err) console.log('ERROR:', err)
   })
 
